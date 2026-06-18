@@ -13,66 +13,58 @@
     --paper:#FFFFFF; --bg:#EBEEF3; --line:rgba(21,35,59,.10); --line-soft:rgba(21,35,59,.06);
     --green:#1B9A66; --green-soft:#E5F3EC;
     --gold:#D29B1E; --gold-soft:#F7EDD3;
-    --blue:#2E73C9; --coral:#DD5C3A;
+    --blue:#2E73C9; --coral:#DD5C3A; --purple:#6E5DC6;
+    --live:#D6453E; --live-soft:#FBE7E5; --live-ink:#93302B;
     --silver:#9AA6B2; --bronze:#B07A48;
     --radius:14px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{
-    font-family:"IBM Plex Sans",system-ui,sans-serif;
-    background:var(--bg); color:var(--ink);
-    line-height:1.5; font-variant-numeric:tabular-nums;
-    padding:32px 18px 64px;
-    -webkit-font-smoothing:antialiased;
-  }
-  .wrap{max-width:860px;margin:0 auto}
+  body{font-family:"IBM Plex Sans",system-ui,sans-serif;background:var(--bg);color:var(--ink);
+    line-height:1.5;font-variant-numeric:tabular-nums;padding:32px 18px 64px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:880px;margin:0 auto}
 
-  /* ---- masthead ---- */
-  .masthead{margin-bottom:26px}
-  .eyebrow{
-    font-family:"Oswald",sans-serif; font-weight:500; letter-spacing:.18em;
-    text-transform:uppercase; font-size:12px; color:var(--green);
-    display:flex; align-items:center; gap:10px;
-  }
+  .masthead{margin-bottom:18px}
+  .eyebrow{font-family:"Oswald",sans-serif;font-weight:500;letter-spacing:.18em;text-transform:uppercase;font-size:12px;color:var(--green);display:flex;align-items:center;gap:10px}
   .eyebrow::after{content:"";flex:1;height:1px;background:var(--line)}
-  .title{
-    font-family:"Oswald",sans-serif; font-weight:700; text-transform:uppercase;
-    font-size:clamp(40px,9vw,68px); line-height:.92; letter-spacing:.01em;
-    margin:6px 0 2px;
-  }
-  .subtitle{color:var(--ink-soft); font-size:15px}
+  .title{font-family:"Oswald",sans-serif;font-weight:700;text-transform:uppercase;font-size:clamp(38px,8vw,62px);line-height:.92;letter-spacing:.01em;margin:6px 0 2px}
+  .subtitle{color:var(--ink-soft);font-size:15px}
 
-  /* ---- stat strip ---- */
-  .stats{
-    display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:22px;
-  }
-  .stat{
-    background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
-    padding:14px 16px;
-  }
+  .tabs{display:flex;gap:2px;overflow-x:auto;border-bottom:1px solid var(--line);margin:22px 0 24px;scrollbar-width:thin}
+  .tab{font-family:"Oswald",sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.05em;font-size:15px;padding:10px 16px;border:none;background:none;cursor:pointer;color:var(--ink-soft);border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s;display:inline-flex;align-items:center}
+  .tab:hover{color:var(--ink)}
+  .tab.active{color:var(--ink);border-bottom-color:var(--green)}
+  .tab.locked{color:var(--ink-faint)}
+  .tab .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--ink-faint);margin-left:7px}
+  .tab .dot.live{background:var(--live);animation:pulse 1.5s ease-in-out infinite}
+
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+  .stat{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
   .stat .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-faint);font-weight:600}
   .stat .val{font-family:"Oswald",sans-serif;font-weight:600;font-size:26px;line-height:1.1;margin-top:4px}
   .stat .meta{font-size:12.5px;color:var(--ink-soft);margin-top:1px}
 
-  /* ---- section ---- */
-  .section{
-    background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
-    padding:22px 22px 10px; margin-top:18px;
-  }
+  .rhead{margin-bottom:16px}
+  .rhead-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .rhead-title{font-family:"Oswald",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.04em;font-size:24px}
+  .rhead-sub{font-size:13px;color:var(--ink-soft);margin-top:7px}
+  .pill{display:inline-flex;align-items:center;gap:7px;font-family:"Oswald",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.07em;font-size:12px;padding:5px 11px;border-radius:20px}
+  .pill .pdot{width:7px;height:7px;border-radius:50%;background:currentColor}
+  .pill.live{background:var(--live-soft);color:var(--live-ink)}
+  .pill.live .pdot{background:var(--live);animation:pulse 1.5s ease-in-out infinite}
+  .pill.final{background:var(--green-soft);color:var(--green)}
+
+  .section{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:22px 22px 10px;margin-top:18px}
   .section.goals{padding-bottom:24px}
+  .section.tight{padding-bottom:22px}
   .sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:4px;flex-wrap:wrap}
   .sec-title{font-family:"Oswald",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.04em;font-size:21px}
   .sec-note{font-size:13px;color:var(--ink-soft)}
-  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-soft);margin:10px 0 16px}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-soft);margin:10px 0 16px}
   .legend span{display:flex;align-items:center;gap:6px}
   .swatch{width:12px;height:12px;border-radius:3px;display:inline-block}
   .swatch.line{width:14px;height:0;border-top:2px dashed var(--ink);border-radius:0}
 
-  /* ---- league rows ---- */
-  .row{
-    display:grid; grid-template-columns:34px 1.6fr 3fr auto;
-    align-items:center; gap:14px; padding:11px 0; border-top:1px solid var(--line-soft);
-  }
+  .row{display:grid;grid-template-columns:34px 1.6fr 3fr auto;align-items:center;gap:14px;padding:11px 0;border-top:1px solid var(--line-soft)}
   .row:first-of-type{border-top:none}
   .row.leader{background:var(--green-soft);margin:0 -22px;padding-left:22px;padding-right:22px;border-radius:8px;border-top:none}
   .row.leader + .row{border-top:none}
@@ -82,227 +74,418 @@
   .name small{display:block;color:var(--ink-soft);font-weight:400;font-size:12px}
   .bar{height:20px;border-radius:5px;background:rgba(21,35,59,.05);overflow:hidden;display:flex}
   .bar i{display:block;height:100%;width:0;transition:width .9s cubic-bezier(.22,1,.36,1)}
-  .bar .seg-r{background:var(--green)}
-  .bar .seg-b{background:var(--gold)}
+  .bar .seg-r{background:var(--green)} .bar .seg-b{background:var(--gold)}
   .pts{font-family:"Oswald",sans-serif;font-weight:600;font-size:24px;text-align:right;min-width:34px}
 
-  /* ---- goals chart ---- */
   .goalchart{position:relative;margin-top:4px}
-  .grow{
-    display:grid;grid-template-columns:1.4fr 3fr auto;align-items:center;gap:14px;
-    padding:7px 0;
-  }
+  .grow{display:grid;grid-template-columns:1.4fr 3fr auto;align-items:center;gap:14px;padding:7px 0}
   .grow .gname{font-weight:500;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .gtrack{position:relative;height:16px}
   .gtrack .base{position:absolute;inset:0;border-radius:5px;background:rgba(21,35,59,.05)}
   .gtrack .gbar{position:absolute;left:0;top:0;height:100%;width:0;border-radius:5px;transition:width .9s cubic-bezier(.22,1,.36,1)}
-  .gtrack .gbar.under{background:var(--blue)}
-  .gtrack .gbar.over{background:var(--coral)}
+  .gtrack .gbar.under{background:var(--blue)} .gtrack .gbar.over{background:var(--coral)}
   .gtrack .cap{position:absolute;top:50%;transform:translate(-50%,-50%);width:8px;height:8px;border-radius:50%;background:var(--paper);border:2px solid var(--ink);opacity:0;transition:opacity .3s .6s}
-  .gdiff{font-size:13px;font-weight:500;text-align:right;min-width:54px;font-variant-numeric:tabular-nums}
+  .gdiff{font-size:13px;font-weight:500;text-align:right;min-width:54px}
   .gdiff.under{color:var(--blue)} .gdiff.over{color:var(--coral)}
   .gdiff .gval{color:var(--ink);font-weight:600}
   .grow.best .gname{color:var(--green)}
-  .grow.best .gname::after{content:" ◎";color:var(--green)}
-
-  /* goal line spanning the chart */
+  .grow.best .gname::after{content:" \25CE";color:var(--green)}
+  .grow.passed{opacity:.5}
+  .grow.passed .gval{text-decoration:line-through}
   .goalline{position:absolute;top:0;bottom:0;width:0;pointer-events:none}
   .goalline .ln{position:absolute;top:0;bottom:0;left:0;border-left:2px dashed var(--ink);opacity:.55}
-  .goalline .flag{
-    position:absolute;top:-8px;left:0;transform:translateX(-50%);
-    font-family:"Oswald",sans-serif;font-weight:600;font-size:11px;letter-spacing:.05em;
-    text-transform:uppercase;background:var(--ink);color:#fff;padding:3px 8px;border-radius:6px;white-space:nowrap;
-  }
+  .goalline .flag{position:absolute;top:-8px;left:0;transform:translateX(-50%);font-family:"Oswald",sans-serif;font-weight:600;font-size:11px;letter-spacing:.05em;text-transform:uppercase;background:var(--ink);color:#fff;padding:3px 8px;border-radius:6px;white-space:nowrap}
+  .goalline.prov .flag{background:var(--live)}
+  .goalline.prov .ln{border-color:var(--live);opacity:.6}
   .axis{display:grid;grid-template-columns:1.4fr 3fr auto;gap:14px;margin-top:10px}
-  .axis .scale{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-faint);
-    font-family:"Oswald",sans-serif;letter-spacing:.05em}
+  .axis .scale{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-faint);font-family:"Oswald",sans-serif;letter-spacing:.05em}
+
+  .srow{display:grid;grid-template-columns:34px 2fr 3fr auto;align-items:center;gap:14px;padding:12px 0;border-top:1px solid var(--line-soft)}
+  .srow:first-of-type{border-top:none}
+  .srow.leader{background:var(--green-soft);margin:0 -22px;padding-left:22px;padding-right:22px;border-radius:8px;border-top:none}
+  .srow.leader + .srow{border-top:none}
+  .srow .pr{display:block;color:var(--ink-soft);font-weight:400;font-size:11.5px;margin-top:2px}
+  .seasonbar{height:22px;border-radius:5px;background:rgba(21,35,59,.05);overflow:hidden;display:flex}
+  .seasonbar i{display:block;height:100%;width:0;transition:width .9s cubic-bezier(.22,1,.36,1)}
+
+  .wins{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+  .winchip{display:inline-flex;align-items:center;gap:11px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:8px 15px 8px 9px}
+  .winchip.top{background:var(--gold-soft);border-color:transparent}
+  .winchip .cnt{font-family:"Oswald",sans-serif;font-weight:600;font-size:18px;color:var(--ink-soft);background:var(--paper);border:1px solid var(--line);width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none}
+  .winchip.top .cnt{background:var(--gold);color:#fff;border-color:transparent}
+  .winchip .nm{font-weight:500;font-size:15px;display:block;line-height:1.2}
+  .winchip .rds{font-size:12px;color:var(--ink-soft);display:block;margin-top:1px}
+
+  .empty{background:var(--paper);border:1px dashed var(--line);border-radius:var(--radius);padding:40px 24px;text-align:center;margin-top:18px}
+  .empty .ico{font-family:"Oswald",sans-serif;font-weight:700;font-size:34px;color:var(--ink-faint)}
+  .empty h3{font-family:"Oswald",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.04em;font-size:20px;margin:8px 0 6px}
+  .empty p{color:var(--ink-soft);font-size:14px;max-width:440px;margin:0 auto}
+  .empty code{background:var(--bg);border-radius:5px;padding:1px 6px;font-size:13px}
 
   footer{margin-top:26px;font-size:12.5px;color:var(--ink-soft);line-height:1.7}
   footer b{color:var(--ink);font-weight:600}
   code{background:var(--paper);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:12px}
 
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+
   @media (max-width:560px){
     .stats{grid-template-columns:1fr}
     .row{grid-template-columns:26px 1fr auto;gap:10px}
     .row .bar{display:none}
+    .srow{grid-template-columns:26px 1.3fr auto;gap:10px}
+    .srow .seasonbar{display:none}
     .grow{grid-template-columns:1fr 2.2fr auto;gap:8px}
     .axis{grid-template-columns:1fr 2.2fr auto;gap:8px}
-    .section,.row.leader{padding-left:16px;padding-right:16px}
-    .row.leader{margin:0 -16px}
+    .section,.row.leader,.srow.leader{padding-left:16px;padding-right:16px}
+    .row.leader,.srow.leader{margin:0 -16px}
   }
   @media (prefers-reduced-motion:reduce){
-    .bar i,.gtrack .gbar{transition:none}
-    .gtrack .cap{transition:none}
+    .bar i,.gtrack .gbar,.seasonbar i,.gtrack .cap{transition:none}
+    .tab .dot.live,.pill.live .pdot{animation:none}
   }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="masthead">
-    <div class="eyebrow">FIFA World Cup 2026 · Prediction League</div>
-    <h1 class="title" id="roundTitle">Round 1</h1>
-    <div class="subtitle">Most points wins the table. On goals, closest to the real total is king.</div>
-    <div class="stats" id="statStrip"></div>
+    <div class="eyebrow">FIFA World Cup 2026 &middot; Prediction League</div>
+    <h1 class="title" id="seasonTitle">The Sweepstake</h1>
+    <div class="subtitle" id="seasonSub"></div>
   </header>
 
-  <section class="section">
-    <div class="sec-head">
-      <div class="sec-title">The table</div>
-      <div class="sec-note">Bar = total points, split by how they were earned</div>
-    </div>
-    <div class="legend">
-      <span><i class="swatch" style="background:var(--green)"></i>Result points (1 each)</span>
-      <span><i class="swatch" style="background:var(--gold)"></i>Exact-score bonus (2 each)</span>
-    </div>
-    <div id="leagueBody"></div>
-  </section>
-
-  <section class="section goals">
-    <div class="sec-head">
-      <div class="sec-title">Goals predicted</div>
-      <div class="sec-note">Sorted by who landed nearest the real total</div>
-    </div>
-    <div class="legend">
-      <span><i class="swatch" style="background:var(--blue)"></i>Under</span>
-      <span><i class="swatch" style="background:var(--coral)"></i>Over</span>
-      <span><i class="swatch line"></i>Actual total</span>
-      <span>◎ Closest call</span>
-    </div>
-    <div class="goalchart" id="goalsBody"></div>
-    <div class="axis" id="goalsAxis"></div>
-  </section>
-
+  <nav class="tabs" id="tabs"></nav>
+  <main id="view"></main>
   <footer id="footer"></footer>
 </div>
 
 <script>
 /* ============================================================
-   EDIT HERE EACH ROUND
-   - results      = number of correct results
-   - exactScores  = number of exact scorelines (a subset of results)
-   - goals        = their predicted total goals for the round
+   EDIT HERE
+   Each round moves through three states:
+     UPCOMING  -> players list is empty. Nothing to show yet.
+     LIVE      -> some results are in but the round isn't finished.
+                  Add players + set actualGoals to the goals SO FAR.
+                  (Do NOT set complete yet.) Optionally add
+                  matchesPlayed / matchesTotal to show progress.
+                  Points count provisionally toward the season, but the
+                  round is left out of Round wins + Goals accuracy.
+     COMPLETE  -> the round is finished. Set actualGoals to the FINAL
+                  goal total and add  complete: true.
+   Player fields:
+     results      = number of correct results
+     exactScores  = number of exact scorelines (subset of results)
+     goals        = their predicted FINAL total goals for that round
    ============================================================ */
-const ROUND = "Round 1";
-const ACTUAL_GOALS = 75;
-const SCORING = { perResult: 1, perExactScore: 2 };   // exact score = bonus ON TOP of the result point
-const PLAYERS = [
-  { name:"Lucas",     results:14, exactScores:4, goals:51 },
-  { name:"Shiv",      results:13, exactScores:3, goals:43 },
-  { name:"Kaspar",    results:12, exactScores:3, goals:63 },
-  { name:"Luka",      results:11, exactScores:3, goals:44 },
-  { name:"Yash",      results:10, exactScores:3, goals:58 },
-  { name:"Matt I",    results:13, exactScores:1, goals:53 },
-  { name:"Connor",    results:11, exactScores:2, goals:50 },
-  { name:"Michael F", results:13, exactScores:0, goals:45 },
-  { name:"Michael A", results:11, exactScores:1, goals:60 },
-  { name:"Anisah",    results:10, exactScores:1, goals:11 },
-  { name:"Matt B",    results:10, exactScores:1, goals:82 },
-  { name:"Callum",    results:11, exactScores:0, goals:67 },
-  { name:"Eva",       results:5,  exactScores:0, goals:38 },
+const SEASON_TITLE = "Vardags World Cup Prediction Game";
+const SCORING = { perResult: 1, perExactScore: 2 };  // exact score = bonus ON TOP of the result point
+
+const ROUNDS = [
+  {
+    label: "Round 1",
+    complete: true,
+    actualGoals: 75,
+    players: [
+      { name:"Lucas",     results:14, exactScores:4, goals:51 },
+      { name:"Shiv",      results:13, exactScores:3, goals:43 },
+      { name:"Kaspar",    results:12, exactScores:3, goals:63 },
+      { name:"Luka",      results:11, exactScores:3, goals:44 },
+      { name:"Yash",      results:10, exactScores:3, goals:58 },
+      { name:"Matt I",    results:13, exactScores:1, goals:53 },
+      { name:"Connor",    results:11, exactScores:2, goals:50 },
+      { name:"Michael F", results:13, exactScores:0, goals:45 },
+      { name:"Michael A", results:11, exactScores:1, goals:60 },
+      { name:"Anisah",    results:10, exactScores:1, goals:11 },
+      { name:"Matt B",    results:10, exactScores:1, goals:82 },
+      { name:"Callum",    results:11, exactScores:0, goals:67 },
+      { name:"Eva",       results:5,  exactScores:0, goals:38 },
+    ],
+  },
+
+  // ---- A round IN PROGRESS looks like this (example, fill in real numbers) ----
+  // {
+  //   label: "Round 2",
+  //   actualGoals: 22,          // goals scored SO FAR (not final)
+  //   matchesPlayed: 8, matchesTotal: 12,
+  //   players: [
+  //     { name:"Lucas", results:5, exactScores:1, goals:48 },
+  //     ... everyone's entries ...
+  //   ],
+  // },
+  { label:"Round 2", actualGoals:null, players:[] },
+  { label:"Round 3", actualGoals:null, players:[] },
+  { label:"Round 4", actualGoals:null, players:[] },
+  { label:"Round 5", actualGoals:null, players:[] },
 ];
 /* ============================================================ */
 
-const fmtSigned = n => (n > 0 ? "+" : n < 0 ? "−" : "±") + Math.abs(n);
+const ROUND_COLORS = ["var(--green)","var(--blue)","var(--gold)","var(--coral)","var(--purple)"];
+const fmtSigned = n => (n > 0 ? "+" : n < 0 ? "\u2212" : "\u00B1") + Math.abs(n);
 
-const data = PLAYERS.map(p => {
+function roundStatus(r){
+  if(!r.players || r.players.length===0) return "upcoming";
+  return r.complete ? "complete" : "live";
+}
+const hasData = r => roundStatus(r) !== "upcoming";
+
+function enrich(p){
   const resultPts = p.results * SCORING.perResult;
   const bonusPts  = p.exactScores * SCORING.perExactScore;
-  return { ...p, resultPts, bonusPts, total: resultPts + bonusPts, diff: p.goals - ACTUAL_GOALS };
-});
+  return { ...p, resultPts, bonusPts, total: resultPts + bonusPts };
+}
+function computeRound(round){
+  const players = round.players.map(enrich);
+  const byTotal = [...players].sort((a,b)=> b.total-a.total || b.exactScores-a.exactScores || b.results-a.results || a.name.localeCompare(b.name));
+  const byGoals = [...players].map(p=>({...p, diff:p.goals-round.actualGoals})).sort((a,b)=> Math.abs(a.diff)-Math.abs(b.diff) || a.name.localeCompare(b.name));
+  return { players, byTotal, byGoals, maxTotal: Math.max(...players.map(p=>p.total), 1) };
+}
 
-/* ---- masthead ---- */
-document.getElementById("roundTitle").textContent = ROUND;
+/* ---------- masthead + tabs ---------- */
+document.getElementById("seasonTitle").textContent = SEASON_TITLE;
+const nDone = ROUNDS.filter(r=>roundStatus(r)==="complete").length;
+const nLive = ROUNDS.filter(r=>roundStatus(r)==="live").length;
+const nLeft = ROUNDS.length - nDone - nLive;
+document.getElementById("seasonSub").textContent =
+  `${nDone} complete${nLive?`, ${nLive} in progress`:""}${nLeft?`, ${nLeft} to come`:""}.`;
 
-const byTotal = [...data].sort((a,b)=> b.total-a.total || b.exactScores-a.exactScores || b.results-a.results || a.name.localeCompare(b.name));
-const byGoals = [...data].sort((a,b)=> Math.abs(a.diff)-Math.abs(b.diff) || a.name.localeCompare(b.name));
-const leader = byTotal[0];
-const sharp  = byGoals[0];
-
-document.getElementById("statStrip").innerHTML = `
-  <div class="stat"><div class="lbl">Points leader</div><div class="val">${leader.name}</div><div class="meta">${leader.total} pts · ${leader.exactScores} exact ${leader.exactScores===1?"score":"scores"}</div></div>
-  <div class="stat"><div class="lbl">Actual goals</div><div class="val">${ACTUAL_GOALS}</div><div class="meta">the target to aim for</div></div>
-  <div class="stat"><div class="lbl">Sharpest on goals</div><div class="val">${sharp.name}</div><div class="meta">${sharp.goals} predicted · ${fmtSigned(sharp.diff)} off</div></div>
-`;
-
-/* ---- league table ---- */
-const maxTotal = Math.max(...data.map(d=>d.total));
-const rankOf = d => byTotal.filter(x=>x.total > d.total).length + 1;
-
-document.getElementById("leagueBody").innerHTML = byTotal.map(d=>{
-  const rank = rankOf(d);
-  const rcls = rank<=3 ? ` r${rank}` : "";
-  const fullW = d.total / maxTotal * 100;
-  const rShare = d.total ? d.resultPts / d.total * 100 : 0;
-  const bShare = 100 - rShare;
-  const sub = d.exactScores ? `${d.results} results · ${d.exactScores} exact` : `${d.results} results`;
-  return `
-  <div class="row${rank===1?" leader":""}">
-    <div class="rank${rcls}">${rank}</div>
-    <div class="name">${d.name}<small>${sub}</small></div>
-    <div class="bar" style="--w:${fullW}">
-      <i class="seg-r" data-w="${fullW*rShare/100}"></i>
-      <i class="seg-b" data-w="${fullW*bShare/100}"></i>
-    </div>
-    <div class="pts">${d.total}</div>
-  </div>`;
+const tabsEl = document.getElementById("tabs");
+const tabDefs = [{key:"home", label:"Home"}].concat(ROUNDS.map((r,i)=>({key:"r"+i, label:r.label, status:roundStatus(r)})));
+tabsEl.innerHTML = tabDefs.map(t=>{
+  let dot = "";
+  if(t.status==="upcoming") dot = '<span class="dot"></span>';
+  else if(t.status==="live") dot = '<span class="dot live"></span>';
+  return `<button class="tab${t.status==="upcoming"?" locked":""}" data-tab="${t.key}">${t.label}${dot}</button>`;
 }).join("");
 
-/* ---- goals chart ---- */
-const axisMax = Math.ceil(Math.max(...data.map(d=>d.goals), ACTUAL_GOALS) / 10) * 10 + 5;
-const pct = v => v / axisMax * 100;
+let active = "home";
+function setActive(key){
+  active = key;
+  document.querySelectorAll(".tab").forEach(b=> b.classList.toggle("active", b.dataset.tab===key));
+  render();
+}
+tabsEl.addEventListener("click", e=>{ const b=e.target.closest(".tab"); if(b) setActive(b.dataset.tab); });
 
-document.getElementById("goalsBody").innerHTML = byGoals.map(d=>{
-  const over = d.diff > 0;
-  const cls = over ? "over" : "under";
-  const sub = over ? "Over" : "Under";
+/* ---------- shared blocks ---------- */
+function leagueRows(rc){
+  const rankOf = d => rc.byTotal.filter(x=>x.total > d.total).length + 1;
+  return rc.byTotal.map(d=>{
+    const rank = rankOf(d), rcls = rank<=3 ? ` r${rank}` : "";
+    const fullW = d.total / rc.maxTotal * 100;
+    const rShare = d.total ? d.resultPts/d.total*100 : 0;
+    const sub = d.exactScores ? `${d.results} results \u00B7 ${d.exactScores} exact` : `${d.results} results`;
+    return `<div class="row${rank===1?" leader":""}">
+      <div class="rank${rcls}">${rank}</div>
+      <div class="name">${d.name}<small>${sub}</small></div>
+      <div class="bar"><i class="seg-r" data-w="${fullW*rShare/100}"></i><i class="seg-b" data-w="${fullW*(100-rShare)/100}"></i></div>
+      <div class="pts">${d.total}</div></div>`;
+  }).join("");
+}
+function goalsBlock(byGoals, refGoals, live){
+  const best = live ? null : byGoals[0];
+  const axisMax = Math.ceil(Math.max(...byGoals.map(d=>d.goals), refGoals)/10)*10 + 5;
+  const pct = v => v/axisMax*100;
+  const rows = byGoals.map(d=>{
+    const over = d.diff>0, cls = over?"over":"under";
+    const passed = live && d.goals < refGoals;
+    return `<div class="grow${d===best?" best":""}${passed?" passed":""}">
+      <div class="gname">${d.name}</div>
+      <div class="gtrack"><div class="base"></div><div class="gbar ${cls}" data-w="${pct(d.goals)}"></div><div class="cap" style="left:${pct(d.goals)}%"></div></div>
+      <div class="gdiff ${cls}"><span class="gval">${d.goals}</span> \u00B7 ${fmtSigned(d.diff)}</div></div>`;
+  }).join("");
+  return {html:rows, axisMax};
+}
+
+/* ---------- round view ---------- */
+function renderRound(idx){
+  const round = ROUNDS[idx];
+  const status = roundStatus(round);
+  if(status==="upcoming"){
+    return `<div class="empty"><div class="ico">${round.label.replace("Round ","R")}</div>
+      <h3>${round.label} hasn't kicked off</h3>
+      <p>Add this round's entries to the <code>ROUNDS</code> list in the file and it'll appear here \u2014 mark it <code>complete</code> once the final results are in.</p></div>`;
+  }
+  const live = status==="live";
+  const rc = computeRound(round);
+  const leader = rc.byTotal[0], sharp = rc.byGoals[0];
+  const g = goalsBlock(rc.byGoals, round.actualGoals, live);
+
+  const progress = round.matchesTotal ? `${round.matchesPlayed||0} of ${round.matchesTotal} matches played` : "Round in progress";
+  const header = `<div class="rhead">
+    <div class="rhead-row"><span class="rhead-title">${round.label}</span>
+      <span class="pill ${live?"live":"final"}"><span class="pdot"></span>${live?"Live":"Final"}</span></div>
+    ${live?`<div class="rhead-sub">${progress} \u00B7 standings provisional</div>`:""}</div>`;
+
+  const third = live
+    ? (round.matchesTotal
+        ? `<div class="stat"><div class="lbl">Matches</div><div class="val">${round.matchesPlayed||0} / ${round.matchesTotal}</div><div class="meta">in this round</div></div>`
+        : `<div class="stat"><div class="lbl">Entries in</div><div class="val">${round.players.length}</div><div class="meta">predictions logged</div></div>`)
+    : `<div class="stat"><div class="lbl">Sharpest on goals</div><div class="val">${sharp.name}</div><div class="meta">${sharp.goals} predicted \u00B7 ${fmtSigned(sharp.diff)} off</div></div>`;
+
+  const stats = `<div class="stats">
+    <div class="stat"><div class="lbl">${live?"Leading":"Round winner"}</div><div class="val">${leader.name}</div><div class="meta">${leader.total} pts${live?" so far":` \u00B7 ${leader.exactScores} exact ${leader.exactScores===1?"score":"scores"}`}</div></div>
+    <div class="stat"><div class="lbl">${live?"Goals so far":"Actual goals"}</div><div class="val">${round.actualGoals}</div><div class="meta">${live?"final total still climbing":"the target to aim for"}</div></div>
+    ${third}</div>`;
+
+  const goalsLegend = live
+    ? `<span><i class="swatch" style="background:var(--blue)"></i>Under</span><span><i class="swatch" style="background:var(--coral)"></i>Over</span><span><i class="swatch line" style="border-color:var(--live)"></i>Goals so far</span><span>Faded = total already passed</span>`
+    : `<span><i class="swatch" style="background:var(--blue)"></i>Under</span><span><i class="swatch" style="background:var(--coral)"></i>Over</span><span><i class="swatch line"></i>Actual total</span><span>\u25CE Closest call</span>`;
+
+  return `${header}${stats}
+  <section class="section">
+    <div class="sec-head"><div class="sec-title">${round.label} table</div><div class="sec-note">${live?"Provisional \u2014 round still in progress":"Bar = points, split by how they were earned"}</div></div>
+    <div class="legend"><span><i class="swatch" style="background:var(--green)"></i>Result points (1 each)</span><span><i class="swatch" style="background:var(--gold)"></i>Exact-score bonus (2 each)</span></div>
+    ${leagueRows(rc)}
+  </section>
+  <section class="section goals">
+    <div class="sec-head"><div class="sec-title">Goals predicted</div><div class="sec-note">${live?"Predictions are for the final total \u2014 not decided yet":"Nearest the real total wins"}</div></div>
+    <div class="legend">${goalsLegend}</div>
+    <div class="goalchart${live?" prov":""}" data-actual="${round.actualGoals}" data-axismax="${g.axisMax}" data-flag="${live?"So far":"Actual"}">${g.html}</div>
+    <div class="axis"><span></span><div class="scale"><span>0</span><span>${Math.round((g.axisMax-5)*0.5)}</span><span>${g.axisMax-5}</span></div><span></span></div>
+  </section>`;
+}
+
+/* ---------- season aggregation ---------- */
+function computeSeason(){
+  const idxAll      = ROUNDS.map((r,i)=>i);
+  const dataIdx     = idxAll.filter(i=> hasData(ROUNDS[i]));               // live + complete -> provisional points
+  const completeIdx = idxAll.filter(i=> roundStatus(ROUNDS[i])==="complete"); // final -> wins + goals accuracy
+  const liveIdx     = idxAll.filter(i=> roundStatus(ROUNDS[i])==="live");
+
+  const map = new Map();
+  dataIdx.forEach(i=>{
+    ROUNDS[i].players.map(enrich).forEach(p=>{
+      if(!map.has(p.name)) map.set(p.name, {name:p.name, total:0, perRound:{}});
+      const m = map.get(p.name); m.total += p.total; m.perRound[i] = p.total;
+    });
+  });
+  const standings = [...map.values()].sort((x,y)=> y.total-x.total || x.name.localeCompare(y.name));
+
+  const gmap = new Map();
+  completeIdx.forEach(i=>{
+    const a = ROUNDS[i].actualGoals;
+    ROUNDS[i].players.forEach(p=>{
+      if(!gmap.has(p.name)) gmap.set(p.name, {name:p.name, gErr:0, gRounds:0});
+      const m = gmap.get(p.name); m.gErr += Math.abs(p.goals-a); m.gRounds += 1;
+    });
+  });
+  const goalsBoard = [...gmap.values()].map(m=>({...m, gAvg:m.gRounds?m.gErr/m.gRounds:0}))
+    .sort((x,y)=> x.gAvg-y.gAvg || x.name.localeCompare(y.name));
+
+  const wins = new Map();
+  completeIdx.forEach(i=>{
+    const rc = computeRound(ROUNDS[i]);
+    rc.players.forEach(p=>{ if(p.total===rc.maxTotal && p.total>0){
+      if(!wins.has(p.name)) wins.set(p.name, {name:p.name, count:0, rounds:[]});
+      const w=wins.get(p.name); w.count++; w.rounds.push(i);
+    }});
+  });
+  const winners = [...wins.values()].sort((a,b)=> b.count-a.count || a.rounds[0]-b.rounds[0] || a.name.localeCompare(b.name));
+
+  return { dataIdx, completeIdx, liveIdx, standings, goalsBoard, winners,
+           maxWins: Math.max(...winners.map(w=>w.count),0),
+           maxTotal: Math.max(...standings.map(s=>s.total),1),
+           maxAvg: Math.max(...goalsBoard.map(g=>g.gAvg),1),
+           provisional: liveIdx.length>0 };
+}
+
+function renderHome(){
+  if(ROUNDS.filter(hasData).length===0){
+    return `<div class="empty"><div class="ico">\u26BD</div><h3>No rounds played yet</h3>
+      <p>Fill in <code>Round 1</code> in the file to get the season underway.</p></div>`;
+  }
+  const s = computeSeason();
+  const leader = s.standings[0];
+  const sharp = s.goalsBoard[0];
+  const rankOf = d => s.standings.filter(x=>x.total>d.total).length + 1;
+
+  const legend = s.dataIdx.map(i=>{
+    const liveTag = roundStatus(ROUNDS[i])==="live" ? " (live)" : "";
+    return `<span><i class="swatch" style="background:${ROUND_COLORS[i%5]}"></i>${ROUNDS[i].label}${liveTag}</span>`;
+  }).join("");
+
+  const standRows = s.standings.map(d=>{
+    const rank = rankOf(d), rcls = rank<=3?` r${rank}`:"";
+    const fullW = d.total/s.maxTotal*100;
+    const segs = s.dataIdx.filter(i=>d.perRound[i]>0).map(i=>
+      `<i data-w="${fullW*(d.perRound[i]/d.total)}" style="background:${ROUND_COLORS[i%5]}"></i>`).join("");
+    const pr = s.dataIdx.map(i=> `R${i+1} ${d.perRound[i]!=null?d.perRound[i]:"\u2013"}`).join("  \u00B7  ");
+    return `<div class="srow${rank===1?" leader":""}">
+      <div class="rank${rcls}">${rank}</div>
+      <div class="name">${d.name}<span class="pr">${pr}</span></div>
+      <div class="seasonbar">${segs}</div>
+      <div class="pts">${d.total}</div></div>`;
+  }).join("");
+
+  const winsHtml = s.winners.length ? s.winners.map(w=>{
+    const rds = w.rounds.map(i=>"R"+(i+1)).join("  \u00B7  ");
+    return `<div class="winchip${w.count===s.maxWins?" top":""}"><span class="cnt">${w.count}</span><span><span class="nm">${w.name}</span><span class="rds">${rds}</span></span></div>`;
+  }).join("") : `<p class="sec-note">Crowned once a round is final.</p>`;
+
+  const goalRows = s.goalsBoard.length ? s.goalsBoard.map((d,i)=>{
+    const w = d.gAvg/s.maxAvg*100;
+    return `<div class="grow${i===0?" best":""}">
+      <div class="gname">${d.name}</div>
+      <div class="gtrack"><div class="base"></div><div class="gbar under" data-w="${w}"></div></div>
+      <div class="gdiff under"><span class="gval">${d.gErr}</span> off \u00B7 ${d.gAvg.toFixed(1)}/rd</div></div>`;
+  }).join("") : `<p class="sec-note">Ranked once a round is final \u2014 a live round's goal total isn't settled yet.</p>`;
+
+  const sharpVal = sharp ? sharp.name : "\u2014";
+  const sharpMeta = sharp ? `avg ${sharp.gAvg.toFixed(1)} off per round` : "after the first final round";
+
   return `
-  <div class="grow${d===sharp?" best":""}">
-    <div class="gname">${d.name}</div>
-    <div class="gtrack">
-      <div class="base"></div>
-      <div class="gbar ${cls}" data-w="${pct(d.goals)}"></div>
-      <div class="cap" style="left:${pct(d.goals)}%"></div>
-    </div>
-    <div class="gdiff ${cls}"><span class="gval">${d.goals}</span> · ${fmtSigned(d.diff)}</div>
-  </div>`;
-}).join("");
+  <div class="stats">
+    <div class="stat"><div class="lbl">Season leader</div><div class="val">${leader.name}</div><div class="meta">${leader.total} pts${s.provisional?" (live)":""} over ${s.dataIdx.length} ${s.dataIdx.length===1?"round":"rounds"}</div></div>
+    <div class="stat"><div class="lbl">Rounds</div><div class="val">${s.completeIdx.length} / ${ROUNDS.length}</div><div class="meta">final${s.liveIdx.length?` \u00B7 ${s.liveIdx.length} live`:""}</div></div>
+    <div class="stat"><div class="lbl">Sharpest on goals</div><div class="val">${sharpVal}</div><div class="meta">${sharpMeta}</div></div>
+  </div>
+  <section class="section">
+    <div class="sec-head"><div class="sec-title">Season standings</div><div class="sec-note">${s.provisional?"Total points \u00B7 includes a live round":"Total points across all rounds"}</div></div>
+    <div class="legend">${legend}</div>
+    ${standRows}
+  </section>
+  <section class="section tight">
+    <div class="sec-head"><div class="sec-title">Round wins</div><div class="sec-note">Topped a completed round (ties shared)</div></div>
+    <div class="wins">${winsHtml}</div>
+  </section>
+  <section class="section goals">
+    <div class="sec-head"><div class="sec-title">Goals accuracy</div><div class="sec-note">Shorter bar = sharper, completed rounds only</div></div>
+    ${s.goalsBoard.length?`<div class="legend"><span><i class="swatch" style="background:var(--blue)"></i>Avg goals off per round</span><span>\u25CE Most accurate</span></div>`:""}
+    <div class="goalchart">${goalRows}</div>
+  </section>`;
+}
 
-/* goal line positioned over the track column only */
-(function(){
-  const chart = document.getElementById("goalsBody");
-  const line = document.createElement("div");
-  line.className = "goalline";
-  line.innerHTML = `<div class="ln"></div><div class="flag">Actual · ${ACTUAL_GOALS}</div>`;
-  chart.style.position = "relative";
-  chart.appendChild(line);
-  const place = () => {
-    const row = chart.querySelector(".grow");
-    if(!row) return;
+/* ---------- mount + animation ---------- */
+function placeGoalLines(){
+  document.querySelectorAll(".goalchart[data-actual]").forEach(chart=>{
+    const actual = +chart.dataset.actual, axisMax = +chart.dataset.axismax;
+    const flagText = chart.dataset.flag || "Actual";
+    let line = chart.querySelector(".goalline");
+    if(!line){ line=document.createElement("div"); line.className="goalline"+(chart.classList.contains("prov")?" prov":"");
+      line.innerHTML=`<div class="ln"></div><div class="flag">${flagText} \u00B7 ${actual}</div>`;
+      chart.style.position="relative"; chart.appendChild(line); }
+    const row = chart.querySelector(".grow"); if(!row) return;
     const track = row.querySelector(".gtrack");
     const cr = chart.getBoundingClientRect(), tr = track.getBoundingClientRect();
-    const x = (tr.left - cr.left) + tr.width * (ACTUAL_GOALS/axisMax);
-    line.style.left = x + "px";
-    line.querySelector(".ln").style.left = "0";
-  };
-  place();
-  window.addEventListener("resize", place);
-  setTimeout(place, 60);
-})();
+    line.style.left = ((tr.left-cr.left) + tr.width*(actual/axisMax)) + "px";
+  });
+}
+function animateBars(){
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    document.querySelectorAll(".bar i, .seasonbar i, .gtrack .gbar").forEach(el=> el.style.width = el.dataset.w + "%");
+    document.querySelectorAll(".gtrack .cap").forEach(el=> el.style.opacity = 1);
+  }));
+}
+function render(){
+  const view = document.getElementById("view");
+  view.innerHTML = active==="home" ? renderHome() : renderRound(+active.slice(1));
+  placeGoalLines(); animateBars();
+}
+window.addEventListener("resize", placeGoalLines);
 
-document.getElementById("goalsAxis").innerHTML =
-  `<span></span><div class="scale"><span>0</span><span>${Math.round((axisMax-5)*0.5)}</span><span>${axisMax-5}</span></div><span></span>`;
-
-/* ---- footer ---- */
 document.getElementById("footer").innerHTML = `
-  <b>How scoring works.</b> Each correct result is worth ${SCORING.perResult} point; each exact scoreline adds ${SCORING.perExactScore} bonus points on top. Table rank is by total points (ties share a rank).
-  <br><b>To update next round:</b> open this file in a text editor and change the <code>PLAYERS</code> list and <code>ACTUAL_GOALS</code> near the top of the script — everything else recalculates on its own.`;
+  <b>How scoring works.</b> Each correct result is worth ${SCORING.perResult} point; each exact scoreline adds ${SCORING.perExactScore} bonus points on top. Table rank is by points (ties share a rank).
+  <br><b>Round status.</b> A round with no entries shows as <b>upcoming</b>. Add entries and it goes <b>live</b> \u2014 its points count provisionally in the season standings, but it's held out of Round wins and Goals accuracy until you mark it <code>complete: true</code> with the final goal total.`;
 
-/* ---- animate bars in ---- */
-requestAnimationFrame(()=>requestAnimationFrame(()=>{
-  document.querySelectorAll(".bar i").forEach(el=> el.style.width = el.dataset.w + "%");
-  document.querySelectorAll(".gtrack .gbar").forEach(el=> el.style.width = el.dataset.w + "%");
-  document.querySelectorAll(".gtrack .cap").forEach(el=> el.style.opacity = 1);
-}));
+setActive("home");
 </script>
 </body>
 </html>
