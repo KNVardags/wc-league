@@ -300,8 +300,7 @@ function renderRound(idx){
   const status = roundStatus(round);
   if(status==="upcoming"){
     return `<div class="empty"><div class="ico">${round.label.replace("Round ","R")}</div>
-      <h3>${round.label} hasn't kicked off</h3>
-      <p>Add this round's entries to the <code>ROUNDS</code> list in the file and it'll appear here \u2014 mark it <code>complete</code> once the final results are in.</p></div>`;
+      <h3>${round.label} hasn't kicked off</h3></div>`;
   }
   const live = status==="live";
   const rc = computeRound(round);
