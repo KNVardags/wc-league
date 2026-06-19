@@ -90,8 +90,6 @@
   .gdiff .gval{color:var(--ink);font-weight:600}
   .grow.best .gname{color:var(--green)}
   .grow.best .gname::after{content:" \25CE";color:var(--green)}
-  .grow.passed{opacity:.5}
-  .grow.passed .gval{text-decoration:line-through}
   .goalline{position:absolute;top:0;bottom:0;width:0;pointer-events:none}
   .goalline .ln{position:absolute;top:0;bottom:0;left:0;border-left:2px dashed var(--ink);opacity:.55}
   .goalline .flag{position:absolute;top:-8px;left:0;transform:translateX(-50%);font-family:"Oswald",sans-serif;font-weight:600;font-size:11px;letter-spacing:.05em;text-transform:uppercase;background:var(--ink);color:#fff;padding:3px 8px;border-radius:6px;white-space:nowrap}
@@ -174,9 +172,11 @@
    Player fields:
      results      = number of correct results
      exactScores  = number of exact scorelines (subset of results)
-     goals        = their predicted FINAL total goals for that round
+     goals        = their predicted goal count, judged against the round's
+                    goal total as it currently stands (the live amount while
+                    in progress, or the final amount once complete)
    ============================================================ */
-const SEASON_TITLE = "Vardags World Cup Prediction Game";
+    const SEASON_TITLE = "Vardags World Cup Prediction Game";
 const SCORING = { perResult: 1, perExactScore: 2 };  // exact score = bonus ON TOP of the result point
 
 const ROUNDS = [
@@ -298,14 +298,13 @@ function leagueRows(rc){
       <div class="pts">${d.total}</div></div>`;
   }).join("");
 }
-function goalsBlock(byGoals, refGoals, live){
-  const best = live ? null : byGoals[0];
+function goalsBlock(byGoals, refGoals){
+  const best = byGoals[0];
   const axisMax = Math.ceil(Math.max(...byGoals.map(d=>d.goals), refGoals)/10)*10 + 5;
   const pct = v => v/axisMax*100;
   const rows = byGoals.map(d=>{
     const over = d.diff>0, cls = over?"over":"under";
-    const passed = live && d.goals < refGoals;
-    return `<div class="grow${d===best?" best":""}${passed?" passed":""}">
+    return `<div class="grow${d===best?" best":""}">
       <div class="gname">${d.name}</div>
       <div class="gtrack"><div class="base"></div><div class="gbar ${cls}" data-w="${pct(d.goals)}"></div><div class="cap" style="left:${pct(d.goals)}%"></div></div>
       <div class="gdiff ${cls}"><span class="gval">${d.goals}</span> \u00B7 ${fmtSigned(d.diff)}</div></div>`;
@@ -324,7 +323,7 @@ function renderRound(idx){
   const live = status==="live";
   const rc = computeRound(round);
   const leader = rc.byTotal[0], sharp = rc.byGoals[0];
-  const g = goalsBlock(rc.byGoals, round.actualGoals, live);
+  const g = goalsBlock(rc.byGoals, round.actualGoals);
 
   const progress = round.matchesTotal ? `${round.matchesPlayed||0} of ${round.matchesTotal} matches played` : "Round in progress";
   const header = `<div class="rhead">
@@ -332,19 +331,15 @@ function renderRound(idx){
       <span class="pill ${live?"live":"final"}"><span class="pdot"></span>${live?"Live":"Final"}</span></div>
     ${live?`<div class="rhead-sub">${progress} \u00B7 standings provisional</div>`:""}</div>`;
 
-  const third = live
-    ? (round.matchesTotal
-        ? `<div class="stat"><div class="lbl">Matches</div><div class="val">${round.matchesPlayed||0} / ${round.matchesTotal}</div><div class="meta">in this round</div></div>`
-        : `<div class="stat"><div class="lbl">Entries in</div><div class="val">${round.players.length}</div><div class="meta">predictions logged</div></div>`)
-    : `<div class="stat"><div class="lbl">Sharpest on goals</div><div class="val">${sharp.name}</div><div class="meta">${sharp.goals} predicted \u00B7 ${fmtSigned(sharp.diff)} off</div></div>`;
+  const third = `<div class="stat"><div class="lbl">${live?"Closest so far":"Sharpest on goals"}</div><div class="val">${sharp.name}</div><div class="meta">${sharp.goals} predicted \u00B7 ${fmtSigned(sharp.diff)} off</div></div>`;
 
   const stats = `<div class="stats">
     <div class="stat"><div class="lbl">${live?"Leading":"Round winner"}</div><div class="val">${leader.name}</div><div class="meta">${leader.total} pts${live?" so far":` \u00B7 ${leader.exactScores} exact ${leader.exactScores===1?"score":"scores"}`}</div></div>
-    <div class="stat"><div class="lbl">${live?"Goals so far":"Actual goals"}</div><div class="val">${round.actualGoals}</div><div class="meta">${live?"final total still climbing":"the target to aim for"}</div></div>
+    <div class="stat"><div class="lbl">${live?"Goals so far":"Actual goals"}</div><div class="val">${round.actualGoals}</div><div class="meta">${live?"the live count to beat":"the target to aim for"}</div></div>
     ${third}</div>`;
 
   const goalsLegend = live
-    ? `<span><i class="swatch" style="background:var(--blue)"></i>Under</span><span><i class="swatch" style="background:var(--coral)"></i>Over</span><span><i class="swatch line" style="border-color:var(--live)"></i>Goals so far</span><span>Faded = total already passed</span>`
+    ? `<span><i class="swatch" style="background:var(--blue)"></i>Under</span><span><i class="swatch" style="background:var(--coral)"></i>Over</span><span><i class="swatch line" style="border-color:var(--live)"></i>Live total</span><span>\u25CE Closest so far</span>`
     : `<span><i class="swatch" style="background:var(--blue)"></i>Under</span><span><i class="swatch" style="background:var(--coral)"></i>Over</span><span><i class="swatch line"></i>Actual total</span><span>\u25CE Closest call</span>`;
 
   return `${header}${stats}
@@ -354,9 +349,9 @@ function renderRound(idx){
     ${leagueRows(rc)}
   </section>
   <section class="section goals">
-    <div class="sec-head"><div class="sec-title">Goals predicted</div><div class="sec-note">${live?"Predictions are for the final total \u2014 not decided yet":"Nearest the real total wins"}</div></div>
+    <div class="sec-head"><div class="sec-title">Goals predicted</div><div class="sec-note">${live?"Closest to the live count leads \u2014 still moving":"Nearest the real total wins"}</div></div>
     <div class="legend">${goalsLegend}</div>
-    <div class="goalchart${live?" prov":""}" data-actual="${round.actualGoals}" data-axismax="${g.axisMax}" data-flag="${live?"So far":"Actual"}">${g.html}</div>
+    <div class="goalchart${live?" prov":""}" data-actual="${round.actualGoals}" data-axismax="${g.axisMax}" data-flag="${live?"Live":"Actual"}">${g.html}</div>
     <div class="axis"><span></span><div class="scale"><span>0</span><span>${Math.round((g.axisMax-5)*0.5)}</span><span>${g.axisMax-5}</span></div><span></span></div>
   </section>`;
 }
@@ -407,8 +402,7 @@ function computeSeason(){
 
 function renderHome(){
   if(ROUNDS.filter(hasData).length===0){
-    return `<div class="empty"><div class="ico">\u26BD</div><h3>No rounds played yet</h3>
-      <p>Fill in <code>Round 1</code> in the file to get the season underway.</p></div>`;
+    return `<div class="empty"><div class="ico">\u26BD</div><h3>No rounds played yet</h3></div>`;
   }
   const s = computeSeason();
   const leader = s.standings[0];
@@ -500,8 +494,7 @@ function render(){
 window.addEventListener("resize", placeGoalLines);
 
 document.getElementById("footer").innerHTML = `
-  <b>How scoring works.</b> Each correct result is worth ${SCORING.perResult} point; each exact scoreline adds ${SCORING.perExactScore} bonus points on top. Table rank is by points (ties share a rank).
-  <br><b>Round status.</b> A round with no entries shows as <b>upcoming</b>. Add entries and it goes <b>live</b> \u2014 its points count provisionally in the season standings, but it's held out of Round wins and Goals accuracy until you mark it <code>complete: true</code> with the final goal total.`;
+  <b>How scoring works.</b> Each correct result is worth ${SCORING.perResult} point; each exact scoreline adds ${SCORING.perExactScore} bonus points on top. Table rank is by points (ties share a rank).`;
 
 setActive("home");
 </script>
