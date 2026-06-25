@@ -200,17 +200,6 @@ const ROUNDS = [
       { name:"Eva",       results:5,  exactScores:0, goals:38 },
     ],
   },
-
-  // ---- A round IN PROGRESS looks like this (example, fill in real numbers) ----
-  // {
-  //   label: "Round 2",
-  //   actualGoals: 22,          // goals scored SO FAR (not final)
-  //   matchesPlayed: 8, matchesTotal: 12,
-  //   players: [
-  //     { name:"Lucas", results:5, exactScores:1, goals:48 },
-  //     ... everyone's entries ...
-  //   ],
-  // },
     {
         label: "Round 2",
         complete: true,
@@ -231,7 +220,37 @@ const ROUNDS = [
             { name: "Eva", results: 10, exactScores: 4, goals: 26 },
         ],
     },
-  { label:"Round 3", actualGoals:null, players:[] },
+  // ---- A round IN PROGRESS looks like this (example, fill in real numbers) ----
+  // {
+  //   label: "Round 2",
+  //   actualGoals: 22,          // goals scored SO FAR (not final)
+  //   matchesPlayed: 8, matchesTotal: 12,
+  //   players: [
+  //     { name:"Lucas", results:5, exactScores:1, goals:48 },
+  //     ... everyone's entries ...
+  //   ],
+  // },
+   
+    {
+        label: "Round 3",
+        actualGoals: 20,
+        matchesPlayed: 6, matchesTotal: 24,
+        players: [
+            { name: "Lucas", results: 5, exactScores: 0, goals: 11 },
+            { name: "Shiv", results: 5, exactScores: 1, goals: 16 },
+            { name: "Kaspar", results: 5, exactScores: 2, goals: 15 },
+            { name: "Luka", results: 4, exactScores: 1, goals: 12 },
+            { name: "Yash", results: 5, exactScores: 0, goals: 20 },
+            { name: "Matt I", results: 3, exactScores: 1, goals: 15 },
+            { name: "Connor", results: 4, exactScores: 0, goals: 18 },
+            { name: "Michael F", results: 3, exactScores: 0, goals: 14 },
+            { name: "Michael A", results: 4, exactScores: 0, goals: 15 },
+            { name: "Anisah", results: 3, exactScores: 0, goals: 14 },
+            { name: "Matt B", results: 3, exactScores: 0, goals: 42 },
+            { name: "Callum", results: 4, exactScores: 1, goals: 15 },
+            { name: "Eva", results: 5, exactScores: 1, goals: 14 },
+        ],
+    },
   { label:"Round 4", actualGoals:null, players:[] },
   { label:"Round 5", actualGoals:null, players:[] },
 ];
